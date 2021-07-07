@@ -1,0 +1,31 @@
+tshubaly@dsautomation1:~$ cat /var/sitefiles/temporary/automation/scriptlogs/data-engineering-kpi_loyalty.log.1
+start opt ins dataset
+end opt ins dataset
+start new ear dataset
+end ear dataset
+start ever redeemed dataset
+end ever redeemed dataset
+Start Activity Buckets (recreate cust orders daily)
+Traceback (most recent call last):
+  File "/var/data-engineering/src/kpi_loyalty/kpi_loyalty_v2.py", line 197, in <module>
+    cust_orders_rolling = cust_orders_rolling()
+  File "/var/data-engineering/src/kpi_loyalty/kpi_loyalty_v2.py", line 33, in cust_orders_rolling
+    cust_orders_rolling = cust_orders_daily.rolling(window = 365, min_periods=1).sum()
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/window/rolling.py", line 2039, in sum
+    return super().sum(*args, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/window/rolling.py", line 1351, in sum
+    return self._apply(window_func, name="sum", **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/window/rolling.py", line 469, in _apply
+    return self._apply_blockwise(homogeneous_func, name)
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/window/rolling.py", line 399, in _apply_blockwise
+    new_mgr = mgr.apply(hfunc, ignore_failures=True)
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/internals/managers.py", line 425, in apply
+    applied = b.apply(f, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/internals/blocks.py", line 378, in apply
+    result = func(self.values, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/window/rolling.py", line 395, in hfunc
+    values = self._prep_values(getattr(bvalues, "T", bvalues))
+  File "/usr/local/lib/python3.7/dist-packages/pandas/core/window/rolling.py", line 275, in _prep_values
+    values = ensure_float64(values)
+  File "pandas/_libs/algos_common_helper.pxi", line 41, in pandas._libs.algos.ensure_float64
+numpy.core._exceptions.MemoryError: Unable to allocate 9.58 GiB for an array with shape (1590, 808364) and data type float64

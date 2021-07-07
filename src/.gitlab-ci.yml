@@ -1,0 +1,16 @@
+variables:
+  HOST: "$K8S_SECRET_DEPLOY_HOST"
+  USERNAME: "$K8S_SECRET_DEPLOY_USERNAME"
+  PASSWORD: "$K8S_SECRET_DEPLOY_PASSWORD"
+  FTPDESTINATION: "$K8S_SECRET_DEPLOY_DESTINATION"
+
+info:
+  script:
+    - export
+    
+deploy:
+  script:
+    - apk update && apk add --update lftp && apk add --update openssh
+    - lftp -c "debug; set sftp:auto-confirm yes; open -u $_DEPLOY_USERNAME,$_DEPLOY_PASSWORD sftp://$_DEPLOY_HOST; mirror -Rn --verbose=3 ./ $_DEPLOY_DESTINATION --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
+  only:
+    - master 
